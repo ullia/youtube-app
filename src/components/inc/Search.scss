@@ -1,0 +1,15 @@
+.search {
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  flex-wrap: nowrap;
+  border-top: 1px solid #ccc;
+  .input-search {
+    flex: 1 1 auto;
+    padding: 5px;
+    margin-right: 10px;
+  }
+  .btn-search {
+    width: 10%;
+  }
+}

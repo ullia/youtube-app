@@ -1,86 +1,52 @@
-import React from "react";
-import "./app.css";
-import Habits from "./components/habits";
-import Navbar from "./components/navbar";
+import React, { useState, useEffect } from "react";
+import "./app.scss";
+import Header from "./components/inc/Header";
+import Search from "./components/inc/Search";
+import VideoList from "./components/VideoList/VideoList";
 
-class App extends React.Component {
-  state = {
-    habits: [
-      { id: 1, name: "Reading", count: 0 },
-      { id: 2, name: "Running", count: 1 },
-      { id: 3, name: "Coding", count: 3 },
-    ],
+function App({ youtube }) {
+  const [videos, setVideos] = useState([]);
+  const [selected, setSelected] = useState(false);
+
+  const search = query => {
+    youtube
+      .search(query) //
+      .then(videos => setVideos(videos));
   };
 
-  handleIncrement = (habit) => {
-    // console.log("thisCount : " + habit.count);
-
-    // habit.count++;
-    // this.setState(this.state);
-
-    const habits = this.state.habits.map((item) => {
-      if (item.id === habit.id) {
-        return { ...habit, count: habit.count + 1 };
-      } else {
-        return item;
-      }
-    });
-    this.setState({ habits: habits });
+  const goToHome = () => {
+    youtube
+      .mostPopular() //
+      .then(videos => setVideos(videos));
   };
 
-  handleDecrement = (habit) => {
-    // console.log("thisCount : " + habit.count);
+  useEffect(() => {
+    youtube
+      .mostPopular() //
+      .then(videos => setVideos(videos));
+  }, [youtube]);
 
-    const habits = this.state.habits.map((item) => {
-      if (item.id === habit.id) {
-        const count = habit.count - 1;
-        return { ...habit, count: count < 0 ? 0 : count };
-      } else {
-        return item;
-      }
-    });
-    this.setState({ habits });
-  };
+  const [itemBgColor, setItemBgColor] = useState([]);
 
-  handleDelete = (habit) => {
-    // console.log("thisName : " + habit.name);
-
-    const habits = this.state.habits.filter((item) => item.id !== habit.id);
-    this.setState({ habits });
-  };
-
-  handleAdd = (name) => {
-    const habits = [...this.state.habits, { id: Date.now(), name, count: 0 }];
-    this.setState({ habits });
-  };
-
-  handleReset = () => {
-    const habits = this.state.habits.map((habit) => {
-      if (habit.count !== 0) {
-        return { ...habit, count: 0 };
-      } else {
-        return habit;
-      }
-    });
-
-    this.setState({ habits });
-  };
-
-  render() {
-    return (
-      <>
-        <Navbar totalCount={this.state.habits.filter((item) => item.count > 0).length} />
-        <Habits
-          habits={this.state.habits}
-          onAdd={this.handleAdd}
-          onIncrement={this.handleIncrement}
-          onDecrement={this.handleDecrement}
-          onDelete={this.handleDelete}
-          onReset={this.handleReset}
-        />
-      </>
-    );
+  for (let i = 0; i < videos.length; i++) {
+    const randomColor = "#" + Math.round(Math.random() * 0xffffff).toString(16);
+    itemBgColor.push(randomColor);
   }
+  console.log(itemBgColor);
+
+  // useEffect : component가 마운트/업데이트 될때마다 호출
+
+  // 1. [] : 마운트될때 한번만 위의 콜백함수가 호출된다.
+  // 2. [name] : name 데이터가 바뀔때마다 위의 콜백함수가 호출되기를 원하면 넣어준다.
+  // 3. 아무것도 작성하지 않으면 마운트 될때마다 호출된다.
+
+  return (
+    <div className="app">
+      <Header onLogoClick={goToHome} />
+      <Search onSearch={search} />
+      <VideoList videos={videos} bgcolor={itemBgColor} />
+    </div>
+  );
 }
 
 export default App;

@@ -1,0 +1,132 @@
+.video_list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.video_item {
+  display: flex;
+  position: relative;
+  flex: 1 1 100%;
+  padding: 1.5em 1em;
+  background-color: transparent;
+  /* border: 1px solid #000; */
+  border-radius: 0.5rem;
+  box-shadow: rgba(255, 255, 255, 0.4);
+  transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  .item_thumb {
+    width: 60%;
+    transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    > img {
+      display: block;
+      width: 100%;
+    }
+  }
+  .item_info {
+    width: 40%;
+    transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    padding-left: 1em;
+    h3 {
+      font: 600 1em "Nanum SeongSirCe", "NanumSquare";
+      span.coloricon {
+        display: inline-block;
+        width: 0.5em;
+        height: 0.5em;
+        margin-right: 0.5em;
+        background: #000;
+      }
+    }
+    p {
+      padding-top: 1em;
+      font: 400 0.9em "Nanum SeongSirCe", "NanumSquare";
+      text-align: right;
+    }
+    h4 {
+      padding-top: 1em;
+      font: 400 1em "Nanum SeongSirCe", "NanumSquare";
+    }
+  }
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 90%;
+    height: 80%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #d7dcd5;
+    z-index: -1;
+    transition: 0.6s;
+  }
+  &.color1 {
+    &::before {
+      background-color: #d7dcd5;
+    }
+  }
+  &.color2 {
+    &::before {
+      background-color: #fed09e;
+    }
+  }
+  &.color3 {
+    &::before {
+      background-color: #caddfe;
+    }
+  }
+  &.color4 {
+    &::before {
+      background-color: #dedadb;
+    }
+  }
+  &.selected {
+    overflow: hidden;
+    border-radius: 0;
+    border: 1px solid #000;
+    margin: 1em 0;
+    // padding: 1em 0;
+    flex-wrap: wrap;
+    flex-direction: row;
+    .item_info {
+      width: 100%;
+      padding-left: 10%;
+      h3 {
+        padding-top: 1em;
+        font: 600 1em "Nanum SeongSirCe", "NanumSquare";
+      }
+    }
+    .item_thumb {
+      width: 100%;
+      > img {
+        display: block;
+        width: 100%;
+      }
+    }
+    .item_info {
+      flex: 1 1 90%;
+      padding-left: 10%;
+      h3 {
+        padding-top: 1em;
+        font: 600 1em "Nanum SeongSirCe", "NanumSquare";
+      }
+    }
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 90%;
+      height: 80%;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      background-color: #d7dcd5;
+      z-index: -1;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .video_list {
+    .video_item {
+      flex: 1 1 50%;
+      width: 50%;
+    }
+  }
+}

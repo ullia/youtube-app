@@ -1,0 +1,35 @@
+#header {
+  display: flex;
+  padding: 1em;
+  font-family: "Nanum SeongSirCe";
+}
+
+#header h1 {
+  margin: auto;
+  font: 600 2em "Nanum SeongSirCe", "NanumSquare";
+  text-align: center;
+  /* text-transform: uppercase; */
+}
+
+#header .back {
+  display: inline-block;
+  font-family: inherit;
+  padding: 0.5em;
+  border: 1px solid #000;
+  border-radius: 3px;
+  outline: 0 none;
+  background-color: transparent;
+}
+#header .menu {
+  display: flex;
+  flex-direction: column;
+  margin: auto 0;
+}
+
+#header .menu span {
+  display: inline-block;
+  margin: 2px;
+  width: 1.4em;
+  height: 3px;
+  background: #000;
+}
